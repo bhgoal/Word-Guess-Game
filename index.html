@@ -10,23 +10,58 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
-    <title>Hangman!</title>
+    <title>Ice Cream!</title>
 </head>
 
 <body>
+  <audio id="myMusic">
+    <source src="assets/audio/Squirrelling.mp3" type="audio/mp3">
+  </audio>
 
-  <div id="game">
-    <h1>Hangman!</h1>
-    <hr>
-    <p id="intro"></p>
-    <p id="userInput"></p>
-    <p id="isLetterThere"></p>
-    <p id="userDisplay"></p>
-    <p id="wrongLetters"></p>
-    <p id="lives"></p>
-    <p id="gameEndMessage"></p>
-    
-    <hr>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 mx-auto py-2 px-5 border">
+        <div class="row">
+          <h1 class="mx-auto">Happy Ice Cream Letter Guess!</h1>
+        </div>
+        <hr>
+        <div class="row" style="height: 60vh">
+          <div class="col-lg-6 border"></div>
+          <div class="col-lg-6 border">
+            <div class="row">
+                <div id="intro">&nbsp;</div>
+            </div>
+            <div class="row">
+              <div id="userInput">&nbsp;</div>
+            </div>
+            <div class="row">
+              <div id="isLetterThere">&nbsp;</div>
+            </div>
+            <div class="row">
+              <div id="userDisplay">&nbsp;</div>
+            </div>
+            <div class="row">
+              <div id="wrongLetters">&nbsp;</div>
+            </div>
+            <div class="row">
+              <div id="lives">&nbsp;</div>
+            </div>
+            <div class="row">
+              <div id="gameEndMessage">&nbsp;</div>
+            </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-auto mx-auto" id="buttonShow">
+        <button onclick="pauseAudio()" class="btn btn-outline-secondary btn-sm my-1">Pause Audio</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-auto mx-auto">
+        <p class="text-center small my-1">Music: http://www.purple-planet.com</p>
+      </div>
+    </div>
+
   </div>
 
   <script src="assets/javascript/game.js"></script>

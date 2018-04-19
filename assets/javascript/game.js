@@ -1,4 +1,4 @@
-// Creates an array that lists out all of the possible words.
+// Creates an array that lists all possible words.
 var wordBank = ["almond cookie", "angelfood cake", "apple crisp", "apple pie", "baked Alaska", "baklava", "banana split", "Belgian waffle","biscotti", "black forest cake", "blueberry muffin", "Boston cream pie", "bread pudding", "brownie", "buttercream frosting", "butterscotch", "cannoli", "caramel apple", "carrot cake", "cheesecake", "cherry pie", "chocolate cake", "chocolate chip cookie", "chocolate mousse", "churro", "cinnamon roll", "coconut cream pie", "coffee cake", "cupcake", "custard", "Danish pastry", "dessert", "doughnut", "dumplings", "eclair", "fortune cookie", "French toast", "frosting", "frozen yogurt", "fruit cake", "fruit cocktail", "fruit salad", "gelatin", "gelato", "gingersnaps", "gingerbread", "ice cream", "ice cream cake", "jellyroll", "Key lime pie", "ladyfingers", "lemon bars", "lemon meringue pie", "macaroon", "marshmallow", "meringue", "milkshake", "molasses", "mousse", "muffin", "neapolitan ice cream", "nougat", "nut brittle", "oatmeal cookie", "pancakes", "panna cotta", "parfait", "pastry", "peanut brittle", "peanutbutter cookie", "pecan pie", "poached pears", "popcicle", "popover", "pound cake", "praline", "pudding", "pumpkin pie", "quick bread", "red velvet cake", "rhubarb pie", "raisin bread", "rice pudding", "sherbet", "shortbread", "smores", "snickerdoodle", "sorbet", "souffle", "sponge cake", "strawberry shortcake", "strudel", "sugar cookie", "sweet potato pie", "sweet roll", "tapioca pudding", "toasted marshmallow", "toffee", "truffle", "turnover", "vanilla cream pie", "vanilla pudding", "waffle", "yellow cake"];
 
 // Array of valid key inputs for guesses
@@ -7,17 +7,17 @@ var validKeys = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m"
 // Run intro on initial page load
 introScreen();
 
+// Play music on load
+var sound = document.getElementById("myMusic");
+sound.loop = true;
+sound.play();
+
 // Function for intro screen
 function introScreen() {
     console.log("Begin introScreen function")
-    // Clear all text except welcome message
-    document.getElementById("intro").innerHTML = "Welcome. Press Enter to begin.";
-    document.getElementById("userInput").innerHTML = "";
-    document.getElementById("userDisplay").innerHTML = "";
-    document.getElementById("isLetterThere").innerHTML = "";
-    document.getElementById("wrongLetters").innerHTML = "";
-    document.getElementById("lives").innerHTML = "";
-    document.getElementById("gameEndMessage").innerHTML = "";
+    // Display welcome message
+    document.getElementById("intro").innerHTML = "Welcome. Press Enter to begin."
+ 
     // Enter key begins mainGame
     document.onkeyup = function(event) {
         if (event.keyCode == 13) {
@@ -30,9 +30,12 @@ function introScreen() {
 // Function for game
 function mainGame() {
     console.log("Begin mainGame function")
-    // Change intro screen
+    // Display initial text, clear any from previous game
     document.getElementById("intro").innerHTML = "";
     document.getElementById("userInput").innerHTML = "Press a Key to guess that letter!";
+    document.getElementById("isLetterThere").innerHTML = "&nbsp;";
+    document.getElementById("wrongLetters").innerHTML = "Already guessed: ";
+    document.getElementById("gameEndMessage").innerHTML = "&nbsp;";
 
     // Set and display number of lives (incorrect guesses)
     var lives = 10;
@@ -42,16 +45,13 @@ function mainGame() {
     var randomWord = wordBank[Math.floor(Math.random() * wordBank.length)];
 
     // Create array used for internal letter checking, not shown to player. Pull letters from chosenWord and push into internal array.
-    var internalArray = [];
-    for (var n = 0; n < randomWord.length; n++) {
-        internalArray.push(randomWord.charAt(n));
-    }
+    var internalArray = randomWord.split("");
 
     // Create var to use as countdown to check win condition
     var unguessedLetters = internalArray.length;
 
     // Dev
-    console.log("randomWord: " + randomWord)
+    console.log("randomWord: " + randomWord) 
 
     // Create array used as display for player, initially filled with unknown letters
     var displayArray = [];
@@ -64,9 +64,8 @@ function mainGame() {
         }
     }
 
-    // Show initial display to player
-    var display = displayArray.join(" ");
-    document.getElementById("userDisplay").innerHTML = display;
+    // Join initial array into string and show to player
+    document.getElementById("userDisplay").innerHTML = displayArray.join(" ");
 
 
     // Array of wrongly guessed letters
@@ -101,8 +100,7 @@ function mainGame() {
                         console.log(displayArray)
 
                         // Update user display
-                        var display = displayArray.join(" ");
-                        document.getElementById("userDisplay").innerHTML = display;
+                        document.getElementById("userDisplay").innerHTML = displayArray.join(" ");
 
                         // Update foundCount
                         foundCount++;
@@ -116,17 +114,24 @@ function mainGame() {
                     console.log("Letter not in array!")
                     lives--;
                     document.getElementById("lives").innerHTML = "Lives: " + lives;
+                    
 
                     // Add letter to already guessed
                     wronglyGuessed.push(userGuess);
                     console.log("wronglyGuessed array: " + wronglyGuessed);
+                    // Update display of wrong guesses
+                    document.getElementById("wrongLetters").innerHTML = "Already guessed: " + wronglyGuessed.join(" ");
                 }
                 console.log("foundCount value: " + foundCount);
 
                 // Lose condition
                 if (lives === 0) {
                     document.getElementById("gameEndMessage").innerHTML = "You dead bruh. Press Enter to play again.";
-                    document.onkeyup = function() {introScreen()};
+                    document.onkeyup = function(event) {
+                        if (event.keyCode == 13) {
+                            mainGame();
+                        }
+                    }
                 }
 
                 // Win condition
@@ -134,7 +139,7 @@ function mainGame() {
                     document.getElementById("gameEndMessage").innerHTML = "You win! Press Enter to play again.";
                     document.onkeyup = function(event) {
                         if (event.keyCode == 13) {
-                            introScreen();
+                            mainGame();
                         }
                     }
                 }
@@ -149,3 +154,17 @@ function mainGame() {
         }
     }
 }
+
+// Audio Buttons
+
+// Pause audio and swap to Play button
+function pauseAudio() {
+    sound.pause();
+    document.getElementById("buttonShow").innerHTML ="<button onclick='playAudio()' class='btn btn-outline-secondary btn-sm my-1' id='audioButton'>Play Audio</button>";
+}
+// Play audio and swap to Pause button
+function playAudio() {
+    sound.play();
+    document.getElementById("buttonShow").innerHTML ="<button onclick='pauseAudio()' class='btn btn-outline-secondary btn-sm my-1' id='audioButton'>Pause Audio</button>";
+}
+
