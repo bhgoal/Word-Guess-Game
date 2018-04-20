@@ -10,19 +10,22 @@ introScreen();
 // Play music on load
 var sound = document.getElementById("myMusic");
 sound.loop = true;
-//sound.play();
+sound.play();
 
 // Create win counter
 var winCount = 0;
 
+// Create array of ice cream flavors for display
 var flavor = ["mintcc", "rockyroad", "strawberry", "vanilla"];
 
+// Function for showing ice cream display and selecting random flavors
 function randomIceCream() {
     console.log("Begin randomIceCream function");
+    // Set all scoops to visible
     for (f = 0; f < 6; f++) {
         document.getElementById("scoop" + f).style = "visibility: visible";
     }
-    // Loop through scoop img elements and replace src
+    // Loop through scoop img elements 1-4 and replace src with random flavor
     for (z = 1; z < 5; z++) {
         document.getElementById("scoop" + z).src = "assets/images/" + flavor[Math.floor(Math.random() * flavor.length)] + ".png";
     }
@@ -142,7 +145,7 @@ function mainGame() {
                     // Update display of wrong guesses
                     document.getElementById("wrongLetters").innerHTML = "Already guessed: " + wronglyGuessed.join(" ");
 
-                    
+                    // Hide topmost ice cream scoop to represent a life lost
                     document.getElementById("scoop" + lives).style = "visibility: hidden";
                     
                 }
@@ -151,6 +154,7 @@ function mainGame() {
                 // Lose condition
                 if (lives === 0) {
                     document.getElementById("gameEndMessage").innerHTML = "Out of ice cream! Press Enter to play again.";
+                    // Restart game when Enter is pressed
                     document.onkeyup = function(event) {
                         if (event.keyCode == 13) {
                             randomIceCream(); 
@@ -162,8 +166,10 @@ function mainGame() {
                 // Win condition
                 if (unguessedLetters === 0) {
                     document.getElementById("gameEndMessage").innerHTML = "You win! Press Enter to play again.";
+                    // Update and display total number of wins
                     winCount++;
                     document.getElementById("numberWins").innerHTML = "Number of wins: " + winCount;
+                    // Restart game when Enter is pressed
                     document.onkeyup = function(event) {
                         if (event.keyCode == 13) {
                             randomIceCream(); 
