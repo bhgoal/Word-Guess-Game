@@ -1,8 +1,8 @@
 // Creates an array that lists all possible words.
-var wordBank = ["almond cookie", "angelfood cake", "apple crisp", "apple pie", "baked Alaska", "baklava", "banana split", "Belgian waffle","biscotti", "black forest cake", "blueberry muffin", "Boston cream pie", "bread pudding", "brownie", "buttercream frosting", "butterscotch", "cannoli", "caramel apple", "carrot cake", "cheesecake", "cherry pie", "chocolate cake", "chocolate chip cookie", "chocolate mousse", "churro", "cinnamon roll", "coconut cream pie", "coffee cake", "cupcake", "custard", "Danish pastry", "dessert", "doughnut", "dumplings", "eclair", "fortune cookie", "French toast", "frosting", "frozen yogurt", "fruit cake", "fruit cocktail", "fruit salad", "gelatin", "gelato", "gingersnaps", "gingerbread", "ice cream", "ice cream cake", "jellyroll", "Key lime pie", "ladyfingers", "lemon bars", "lemon meringue pie", "macaroon", "marshmallow", "meringue", "milkshake", "molasses", "mousse", "muffin", "neapolitan ice cream", "nougat", "nut brittle", "oatmeal cookie", "pancakes", "panna cotta", "parfait", "pastry", "peanut brittle", "peanutbutter cookie", "pecan pie", "poached pears", "popcicle", "popover", "pound cake", "praline", "pudding", "pumpkin pie", "quick bread", "red velvet cake", "rhubarb pie", "raisin bread", "rice pudding", "sherbet", "shortbread", "smores", "snickerdoodle", "sorbet", "souffle", "sponge cake", "strawberry shortcake", "strudel", "sugar cookie", "sweet potato pie", "sweet roll", "tapioca pudding", "toasted marshmallow", "toffee", "truffle", "turnover", "vanilla cream pie", "vanilla pudding", "waffle", "yellow cake"];
+var wordBank = ["amys ice cream", "baskin robbins", "ben and jerrys", "birthday cake", "blue bell", "blueberry", "butter pecan", "cheesecake", "choco taco", "chocolate chip", "cookie dough", "cookies and cream", "dairy queen", "dippin dots", "french vanilla", "green tea", "haagen dazs", "ice cream cake", "marble slab", "milkshake", "mint chocolate chip", "neapolitan", "peanut butter", "pralines and cream", "red velvet cake", "rocky road", "salted caramel", "strawberry", "sugar cone", "tutti frutti", "vanilla bean", "waffle cone", "wafer cone" ];
 
 // Array of valid key inputs for guesses
-var validKeys = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+var validKeys = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
 
 // Run intro on initial page load
 introScreen();
@@ -10,13 +10,30 @@ introScreen();
 // Play music on load
 var sound = document.getElementById("myMusic");
 sound.loop = true;
-sound.play();
+//sound.play();
+
+// Create win counter
+var winCount = 0;
+
+var flavor = ["mintcc", "rockyroad", "strawberry", "vanilla"];
+
+function randomIceCream() {
+    console.log("Begin randomIceCream function");
+    for (f = 0; f < 6; f++) {
+        document.getElementById("scoop" + f).style = "visibility: visible";
+    }
+    // Loop through scoop img elements and replace src
+    for (z = 1; z < 5; z++) {
+        document.getElementById("scoop" + z).src = "assets/images/" + flavor[Math.floor(Math.random() * flavor.length)] + ".png";
+    }
+}
+randomIceCream(); 
 
 // Function for intro screen
 function introScreen() {
     console.log("Begin introScreen function")
     // Display welcome message
-    document.getElementById("intro").innerHTML = "Welcome. Press Enter to begin."
+    document.getElementById("intro").innerHTML = "Welcome! Press Enter to begin."
  
     // Enter key begins mainGame
     document.onkeyup = function(event) {
@@ -35,14 +52,16 @@ function mainGame() {
     document.getElementById("userInput").innerHTML = "Press a Key to guess that letter!";
     document.getElementById("isLetterThere").innerHTML = "&nbsp;";
     document.getElementById("wrongLetters").innerHTML = "Already guessed: ";
+    document.getElementById("numberWins").innerHTML = "Number of wins: " + winCount;
     document.getElementById("gameEndMessage").innerHTML = "&nbsp;";
 
     // Set and display number of lives (incorrect guesses)
-    var lives = 10;
-    document.getElementById("lives").innerHTML = "Lives: " + lives;
+    var lives = 6;
+    document.getElementById("lives").innerHTML = "Guesses remaining: " + lives;
 
     // Choose random word from wordBank
     var randomWord = wordBank[Math.floor(Math.random() * wordBank.length)];
+    randomWord = randomWord.toUpperCase();
 
     // Create array used for internal letter checking, not shown to player. Pull letters from chosenWord and push into internal array.
     var internalArray = randomWord.split("");
@@ -64,7 +83,7 @@ function mainGame() {
         }
     }
 
-    // Join initial array into string and show to player
+    // Join initial display into string and show to player
     document.getElementById("userDisplay").innerHTML = displayArray.join(" ");
 
 
@@ -76,6 +95,7 @@ function mainGame() {
 
         // Determines which key was pressed.
         var userGuess = event.key;
+        userGuess = userGuess.toUpperCase();
         console.log("userGuess: " + userGuess)
         
         // Only continue if input is valid key
@@ -121,14 +141,19 @@ function mainGame() {
                     console.log("wronglyGuessed array: " + wronglyGuessed);
                     // Update display of wrong guesses
                     document.getElementById("wrongLetters").innerHTML = "Already guessed: " + wronglyGuessed.join(" ");
+
+                    
+                    document.getElementById("scoop" + lives).style = "visibility: hidden";
+                    
                 }
                 console.log("foundCount value: " + foundCount);
 
                 // Lose condition
                 if (lives === 0) {
-                    document.getElementById("gameEndMessage").innerHTML = "You dead bruh. Press Enter to play again.";
+                    document.getElementById("gameEndMessage").innerHTML = "Out of ice cream! Press Enter to play again.";
                     document.onkeyup = function(event) {
                         if (event.keyCode == 13) {
+                            randomIceCream(); 
                             mainGame();
                         }
                     }
@@ -137,8 +162,11 @@ function mainGame() {
                 // Win condition
                 if (unguessedLetters === 0) {
                     document.getElementById("gameEndMessage").innerHTML = "You win! Press Enter to play again.";
+                    winCount++;
+                    document.getElementById("numberWins").innerHTML = "Number of wins: " + winCount;
                     document.onkeyup = function(event) {
                         if (event.keyCode == 13) {
+                            randomIceCream(); 
                             mainGame();
                         }
                     }

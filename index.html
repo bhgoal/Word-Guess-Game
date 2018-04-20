@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
+    <!-- Google fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Gamja+Flower" rel="stylesheet">
+
     <title>Ice Cream!</title>
 </head>
 
@@ -20,16 +23,35 @@
 
   <div class="container">
     <div class="row">
-      <div class="col-lg-8 mx-auto py-2 px-5 border">
+      <div class="col-lg-8 mx-auto py-2 px-5 border rounded" id="mainWindow">
         <div class="row">
           <h1 class="mx-auto">Happy Ice Cream Letter Guess!</h1>
         </div>
         <hr>
-        <div class="row" style="height: 60vh">
-          <div class="col-lg-6 border"></div>
-          <div class="col-lg-6 border">
+        <div class="row" style="height: auto">
+          <div class="col-lg-6 border rounded py-3">
             <div class="row">
-                <div id="intro">&nbsp;</div>
+              <img class="img-fluid mx-auto" id="scoop5" src="assets/images/cherry.png" alt="The cherry on top" />
+            </div>
+            <div class="row">
+              <img class="img-fluid mx-auto" id="scoop4" src="" alt="The 4th scoop" />
+            </div>
+            <div class="row">
+              <img class="img-fluid mx-auto" id="scoop3" src="" alt="The 3rd scoop" />
+            </div>
+            <div class="row">
+              <img class="img-fluid mx-auto" id="scoop2" src="" alt="The 2nd scoop" />
+            </div>
+            <div class="row">
+              <img class="img-fluid mx-auto" id="scoop1" src="" alt="The 1st scoop" />
+            </div>
+            <div class="row">
+              <img class="img-fluid mx-auto" id="scoop0" src="assets/images/cone.png" alt="Waffle cone on the bottom" />
+            </div>
+          </div>
+          <div class="col-lg-6 border rounded px-4 py-3" id="gameStatsCol">
+            <div class="row">
+                <h1 class="text-center " id="intro">&nbsp;</h1>
             </div>
             <div class="row">
               <div id="userInput">&nbsp;</div>
@@ -38,13 +60,16 @@
               <div id="isLetterThere">&nbsp;</div>
             </div>
             <div class="row">
-              <div id="userDisplay">&nbsp;</div>
+              <div class="mx-auto" id="userDisplay">&nbsp;</div>
             </div>
             <div class="row">
               <div id="wrongLetters">&nbsp;</div>
             </div>
             <div class="row">
               <div id="lives">&nbsp;</div>
+            </div>
+            <div class="row">
+              <div id="numberWins">&nbsp;</div>
             </div>
             <div class="row">
               <div id="gameEndMessage">&nbsp;</div>
@@ -58,7 +83,7 @@
     </div>
     <div class="row">
       <div class="col-lg-auto mx-auto">
-        <p class="text-center small my-1">Music: http://www.purple-planet.com</p>
+        <p class="text-center small my-1" id="musicCredit">Music: http://www.purple-planet.com</p>
       </div>
     </div>
 
