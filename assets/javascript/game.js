@@ -1,5 +1,5 @@
 // Creates an array that lists all possible words.
-var wordBank = ["amys ice cream", "baskin robbins", "ben and jerrys", "birthday cake", "blue bell", "blueberry", "butter pecan", "cheesecake", "choco taco", "chocolate chip", "cookie dough", "cookies and cream", "dairy queen", "dippin dots", "french vanilla", "green tea", "haagen dazs", "ice cream cake", "marble slab", "milkshake", "mint chocolate chip", "neapolitan", "peanut butter", "pralines and cream", "red velvet cake", "rocky road", "salted caramel", "strawberry", "sugar cone", "tutti frutti", "vanilla bean", "waffle cone", "wafer cone" ];
+var wordBank = ["amys ice cream", "baskin robbins", "ben and jerrys", "birthday cake", "blue bell", "blueberry", "butter pecan", "cheesecake", "choco taco", "chocolate chip", "cookie dough", "cookies and cream", "dairy queen", "dippin dots", "french vanilla", "green tea", "haagen dazs", "ice cream cake", "marble slab", "milkshake", "mint chocolate chip", "neapolitan", "peanut butter", "pralines and cream", "red velvet cake", "rocky road", "salted caramel", "strawberry", "sugar cone", "tutti frutti", "vanilla bean", "waffle cone", "wafer cone"];
 
 // Array of valid key inputs for guesses
 var validKeys = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
@@ -49,7 +49,7 @@ function mainGame() {
     console.log("Begin mainGame function")
     // Display initial text, clear any from previous game
     document.getElementById("intro").innerHTML = "";
-    document.getElementById("userInput").innerHTML = "Press a Key to guess that letter!";
+    document.getElementById("userInput").innerHTML = "Press a key to guess that letter!";
     document.getElementById("isLetterThere").innerHTML = "&nbsp;";
     document.getElementById("wrongLetters").innerHTML = "Already guessed: ";
     document.getElementById("numberWins").innerHTML = "Number of wins: " + winCount;
