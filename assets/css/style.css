@@ -18,26 +18,36 @@ body {
 #scoop5 {
     height: 15%;
     width: 15%;
+    margin-bottom: -4%;
+    z-index: 5;
 }
 
 #scoop4 {
     height: 30%;
     width: 30%;
+    margin-bottom: -5%;
+    z-index: 4;
 }
 
 #scoop3 {
     height: 30%;
     width: 30%;
+    margin-bottom: -5%;
+    z-index: 3;
 }
 
 #scoop2 {
     height: 30%;
     width: 30%;
+    margin-bottom: -5%;
+    z-index: 2;
 }
 
 #scoop1 {
     height: 30%;
     width: 30%;
+    margin-bottom: -2%;
+    z-index: 1;
 }
 
 #scoop0 {
